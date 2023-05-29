@@ -13,3 +13,9 @@ Next, initialize tailwind.
 npm install -D tailwindcss
 npx tailwindcss init
 ```
+Add the @tailwind directives for each of Tailwind’s layers to your main CSS file.
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
