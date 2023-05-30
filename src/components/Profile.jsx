@@ -15,7 +15,6 @@ const Profile = () => {
     const [userDetails, setuserDetails] = useState()
     const [showForm, setshowForm] = useState(false)
 
-
     const [activeClass, setactiveClass] = useState({
         all: true,
         active: false,
@@ -126,11 +125,11 @@ const Profile = () => {
                     T O D O
                 </header>
                 <div className="right flex items-center gap-5 w-1/7">
-                    <div className="toggle flex items-center justify-center hover:cursor-pointer">
+                    {/* <div className="toggle flex items-center justify-center hover:cursor-pointer">
                         <img src={Sun} alt="toggle site theme between night/light" />
-                    </div>
+                    </div> */}
 
-                    <button className="first-letter bg-transparent font-bold border-2 text-lg p-1 text-white" onClick={handleLogout}>Logout</button>
+                    <button className="first-letter bg-transparent font-bold border-2 text-lg p-1 px-2 text-white duration-200 hover:scale-105" onClick={handleLogout}>Logout</button>
                 </div>
             </nav>
         </div>
@@ -152,7 +151,7 @@ const Profile = () => {
                   fetchTodos={fetchTodos}
                   todos={todos}
                   />
-                  <footer
+                 { (todos.length) && <footer
                       className='flex w-3/5 items-center justify-between py-5 px-3 bg-list-dark text-white'
                   >
                       <div className="leftSifeFooter text-list-font-dark font-semibold">
@@ -178,7 +177,7 @@ const Profile = () => {
                       <div className="rightSideFooter hover:cursor-pointer" onClick={clearCompleted} >
                           Clear Completed
                       </div>
-                  </footer>
+                  </footer>}
             </div>
             :
             <>
