@@ -71,17 +71,18 @@ const Profile = () => {
         setuserDetails(res)
       },(error) => {
         console.log(error)
-        navigate('/login')
+        navigate('/')
       })
     }, [])
     
     const handleLogout = () => {
         account.deleteSession('current').then((res) => {  
             console.log(res)
-            navigate('/') 
+            
         },(error) => {
             console.log(error)
         })
+        navigate('/') 
     }
 
     const fetchTodos = async (type = 'all') => {

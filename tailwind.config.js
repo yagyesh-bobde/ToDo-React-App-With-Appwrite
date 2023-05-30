@@ -18,8 +18,14 @@ module.exports = {
         'bg-desktop-light': "url('./images/bg-desktop-light.jpg')",
         'bg-mobile-dark': "url('./images/bg-mobile-dark.jpg')",
         'bg-mobile-light': "url('./images/bg-mobile-light.jpg')",
-        'check-gradient': 'linear-gradient(to right,hsl(192, 100%, 67%),hsl(280, 87%, 65%))'
+        'check-gradient': 'linear-gradient(to right,hsl(192, 100%, 67%),hsl(280, 87%, 65%))',
+        'dark-gradient': "linear-gradient(145deg, #272940, #202236);"
+      },
+      borderRadius: {
         
+      },
+      boxShadow: {
+        'dark-shadow': "11px 11px 6px #161724,-11px -11px 6px #323554;"
       }
     },
   },
