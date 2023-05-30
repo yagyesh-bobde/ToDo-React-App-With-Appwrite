@@ -1,0 +1,24 @@
+.scrollingCustom{
+
+}
+
+.scrollingCustom::-webkit-scrollbar {
+    width: 3px;
+    background: #2b2d31;
+}
+
+/* Track */
+.scrollingCustom::-webkit-scrollbar-track {
+    background: #2b2d31;
+}
+
+/* Handle */
+.scrollingCustom::-webkit-scrollbar-thumb {
+    background: #484c55;
+    border-radius: 25px;
+}
+
+/* Handle on hover */
+.scrollingCustom::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

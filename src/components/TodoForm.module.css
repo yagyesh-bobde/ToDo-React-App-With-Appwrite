@@ -1,0 +1,25 @@
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: grid;
+  place-content: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  /* margin: 15% auto; 15% from the top and centered */
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%; /* Could be more or less, depending on screen size */
+  color: white;
+  backdrop-filter: blur(5px);
+}
+
