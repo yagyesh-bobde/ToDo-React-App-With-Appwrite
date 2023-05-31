@@ -41,9 +41,9 @@ const Profile = () => {
     const deleteTodo = (todo) => {
         const promise = databases.deleteDocument(DATABASES_ID, COLLECTION_ID, todo.$id)
 
-        promise.then(function (response) {
+        promise.then(async function (response) {
             console.log(response); // Success
-            fetchTodos()
+            fetchTodos(Object.keys(activeClass).find(key => activeClass[key] === true)[0])
         }, function (error) {
             console.log(error); // Failure
         });
@@ -61,21 +61,27 @@ const Profile = () => {
 
 
     const clearCompleted = () => {
-        todos.filter(todo => todo.completed).map(todo => deleteTodo(todo))
+        todos.filter(todo => todo.isComplete).map(todo => deleteTodo(todo))
 
     }
 
 
     useEffect(() => {
-      const getData = account.get().then((res) => {
-        console.log(res)
-        setuserDetails(res)
-        fetchTodos(Object.keys(activeClass).filter((item) => activeClass[item] === true)[0])   
-      },(error) => {
-        console.log(error)
-        navigate('/')
-      })
+      const getData = account.get()
+        getData.then((res) => {
+            console.log(res)
+            setuserDetails(res)
+            
+        }, (error) => {
+            console.log(error)
+            navigate('/')
+        })
     }, [])
+
+    useEffect(() => {
+        fetchTodos()
+    }, [userDetails])
+
     
     const handleLogout = () => {
         account.deleteSession('current').then((res) => {  
@@ -89,22 +95,26 @@ const Profile = () => {
 
     const fetchTodos = async (type = 'all') => {
 
-
-
         let promise;
         if (type === 'all') {
             promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID,[
-                Query.equal('uid', [userDetails?.$id])
+                Query.equal("uid", [userDetails?.$id]),
+                Query.orderDesc('$updatedAt')
             ])
         } else if (type === 'active') {
             promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID, [
-                Query.equal('isComplete', [false] )
+                Query.equal("uid", [userDetails?.$id]),
+                Query.orderDesc('$updatedAt'),
+                Query.equal("isComplete", [false])
             ])
         } else {
             promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID, [
-                Query.equal('isComplete', [true])
+                Query.equal("uid", [userDetails?.$id]),
+                Query.orderDesc('$updatedAt'),
+                Query.equal("isComplete", [true])
             ])
         }
+
 
         promise.then(function (response) {
             setTodos(response.documents)
