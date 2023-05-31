@@ -5,12 +5,15 @@ import { COLLECTION_ID, DATABASES_ID, databases } from '../appwrite/appwriteConf
 import { v4 as uuidv4 } from 'uuid'
 import { AiOutlineClose } from 'react-icons/ai'
 
-const TodoForm = ({ setshowForm, fetchTodos }) => {
+const TodoForm = ({ setshowForm, fetchTodos , user }) => {
     const [todo, setTodo] = useState({
+        uid: user.$id,
         title: "",
-        description: ""
+        description: "",
+        isComplete: false
     })
 
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         const promise = databases.createDocument(DATABASES_ID, COLLECTION_ID, uuidv4(), todo)

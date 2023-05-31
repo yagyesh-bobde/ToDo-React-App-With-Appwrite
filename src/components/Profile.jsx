@@ -22,6 +22,8 @@ const Profile = () => {
     })
 
 
+
+
     const toggleCompleted = (todo) => {
         const promise = databases.updateDocument(DATABASES_ID, COLLECTION_ID, todo.$id, {
             completed: !todo.completed
@@ -33,7 +35,7 @@ const Profile = () => {
         }
             , function (error) {
                 console.log(error); // Failure
-            });
+        });
     }
 
     const deleteTodo = (todo) => {
@@ -68,6 +70,7 @@ const Profile = () => {
       const getData = account.get().then((res) => {
         console.log(res)
         setuserDetails(res)
+        fetchTodos(Object.keys(activeClass).filter((item) => activeClass[item] === true)[0])   
       },(error) => {
         console.log(error)
         navigate('/')
@@ -85,16 +88,21 @@ const Profile = () => {
     }
 
     const fetchTodos = async (type = 'all') => {
+
+
+
         let promise;
         if (type === 'all') {
-            promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID)
+            promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID,[
+                Query.equal('uid', [userDetails?.$id])
+            ])
         } else if (type === 'active') {
             promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID, [
-                Query.equal('completed', false )
+                Query.equal('isComplete', [false] )
             ])
         } else {
             promise = databases.listDocuments(DATABASES_ID, COLLECTION_ID, [
-                Query.equal('completed', [true])
+                Query.equal('isComplete', [true])
             ])
         }
 
@@ -106,15 +114,13 @@ const Profile = () => {
         });
     }
     
-    useEffect(() => {
-        fetchTodos()
-    }, [])
-
+    
+    
   return (
     <div className="min-h-[100vh] bg-bg-dark ">
           {/* FORM MODAL */}
           {showForm &&
-              <TodoForm fetchTodos={fetchTodos} setshowForm={setshowForm} />}
+              <TodoForm fetchTodos={fetchTodos} setshowForm={setshowForm} user={userDetails} />}
 
 
           <div className="topDiv bg-bg-desktop-dark w-full min-h-[35vh] bg-no-repeat bg-cover flex justify-between items-center">

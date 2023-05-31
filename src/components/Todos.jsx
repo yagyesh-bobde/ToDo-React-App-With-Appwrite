@@ -20,7 +20,7 @@ const Todos = ({ fetchTodos, todos } ) => {
 
   const toggleCompleted = (todo) => {
     const promise = databases.updateDocument(DATABASES_ID, COLLECTION_ID, todo.$id , {
-      completed: !todo.completed
+      isComplete: !todo.isComplete
     })
     
     promise.then(function (response) {
@@ -66,15 +66,15 @@ const Todos = ({ fetchTodos, todos } ) => {
           <li className={`border-b-[0.5px] border-[rgb(255,255,255,0.5)] w-full flex items-center justify-between py-5 px-3 bg-list-dark duration-300 hover:scale-[1.02] `} key={todo.$id}>
 
             <div className="leftListItem flex items-center gap-5">
-              <div className={`border-2 rounded-full p-1 flex items-center justify-center ${todo.completed ? 'bg-check-gradient' : ''} min-w-[15px] min-h-[15px] hover:cursor-pointer`}
+              <div className={`border-2 rounded-full p-1 flex items-center justify-center ${todo.isComplete ? 'bg-check-gradient' : ''} min-w-[15px] min-h-[15px] hover:cursor-pointer`}
                 onClick={() => toggleCompleted(todo)}
               >
                 {
-                  todo.completed && <img src={Check} alt="" />
+                  todo.isComplete && <img src={Check} alt="" />
                 }
 
               </div>
-              <p className={`text-lg ${todo.completed ? 'line-through text-list-font-dark font-semibold' : ""}`} >
+              <p className={`text-lg ${todo.isComplete ? 'line-through text-list-font-dark font-semibold' : ""}`} >
                 {todo.title}
               </p>
             </div>
